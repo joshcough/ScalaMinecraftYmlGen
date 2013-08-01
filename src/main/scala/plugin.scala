@@ -1,4 +1,4 @@
-package jcdc.pluginfactory
+package com.joshcough
 
 import java.io.File
 import sbt._
