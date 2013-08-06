@@ -19,8 +19,24 @@ scalacOptions ++= Seq(Opts.compile.deprecation)
 licenses <++= (version)(v => Seq("MIT" -> url(
   "https://github.com/joshcough/ScalaMinecraftYmlGen/blob/%s/LICENSE".format(v))))
 
-publishMavenStyle := true
+publishTo := Some(Resolver.url("sbt-plugin-releases", new URL("http://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/"))(Resolver.ivyStylePatterns))
+
+publishMavenStyle := false
 
 publishArtifact in Test := false
 
-seq(bintraySettings:_*)
+pomExtra := (
+  <scm>
+    <url>git@github.com:joshcough/ScalaMinecraftYmlGen.git</url>
+    <connection>scm:git:git@github.com:joshcough/ScalaMinecraftYmlGen.git</connection>
+  </scm>
+  <developers>
+    <developer>
+      <id>joshcough</id>
+      <name>Josh Cough</name>
+      <url>https://github.com/joshcough</url>
+    </developer>
+  </developers>
+)
+
+seq(bintrayResolverSettings:_*)
