@@ -1,9 +1,8 @@
 package com.joshcough.minecraft
 
-import java.io.File
 import sbt._
 import Keys._
-import com.joshcough.minecraft.YMLGenerator._
+import java.io.File
 
 object Plugin extends sbt.Plugin {
 
@@ -18,4 +17,18 @@ object Plugin extends sbt.Plugin {
           Seq(dir / "plugin.yml", dir / "config.yml")
       }
   )
+
+  def copyPluginToBukkitSettings(meta: Option[String]) = Seq(
+    // make publish local also copy jars to my bukkit server :)
+    publishLocal <<= (packagedArtifacts, publishLocal) map { case (r, _) =>
+      r collectFirst { case (Artifact(_,"jar","jar", m, _, _, name), f) if m == meta =>
+        println("copying " + f.name + " to bukkit server")
+        IO.copyFile(f, new File("bukkit/plugins/" + f.name))
+      }
+    }
+  )
+
+  def join(settings: Seq[Def.Setting[_]]*) = settings.flatten
+  def named(pname: String) = Seq(name := pname)
+  def libDeps(libDeps: sbt.ModuleID*) = Seq(libraryDependencies ++= libDeps)
 }
