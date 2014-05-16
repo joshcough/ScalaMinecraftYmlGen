@@ -4,7 +4,7 @@ organization := "com.joshcough"
 
 name := "minecraft-sbt-plugin"
 
-version := "0.3.3"
+version := "0.3.4"
 
 description := "automatically generate plugin.yml and config.yml for scala minecraft plugins"
 
@@ -20,7 +20,7 @@ libraryDependencies ++= Seq(
 
 scalacOptions ++= Seq(Opts.compile.deprecation)
 
-bintrayPublishSettings
+seq(bintraySettings:_*)
 
 repository in bintray := "sbt-plugins"
 
