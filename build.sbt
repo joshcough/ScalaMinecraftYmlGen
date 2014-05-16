@@ -1,3 +1,5 @@
+import bintray.Keys._
+
 organization := "com.joshcough"
 
 name := "scala-minecraft-yml-gen"
@@ -12,18 +14,20 @@ sbtVersion := "0.13.2"
 
 scalaVersion := "2.10.3"
 
-seq(bintrayResolverSettings:_*)
-
 libraryDependencies ++= Seq(
   "com.joshcough" %% "scala-minecraft-plugin-api" % "0.3.3"
 )
 
 scalacOptions ++= Seq(Opts.compile.deprecation)
 
+seq(bintrayResolverSettings:_*)
+
+repository in bintray := "sbt-plugins"
+
+bintrayOrganization in bintray := None
+
 licenses <++= version(v => Seq("MIT" -> url(
   "https://github.com/joshcough/ScalaMinecraftYmlGen/blob/%s/LICENSE".format(v))))
-
-publishTo := Some(Resolver.url("sbt-plugin-releases-xxx", new URL("http://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/"))(Resolver.ivyStylePatterns))
 
 publishMavenStyle := false
 
