@@ -2,7 +2,7 @@ import bintray.Keys._
 
 organization := "com.joshcough"
 
-name := "scala-minecraft-yml-gen"
+name := "minecraft-sbt-plugin"
 
 version := "0.3.3"
 
@@ -20,7 +20,7 @@ libraryDependencies ++= Seq(
 
 scalacOptions ++= Seq(Opts.compile.deprecation)
 
-seq(bintrayResolverSettings:_*)
+bintrayPublishSettings
 
 repository in bintray := "sbt-plugins"
 
